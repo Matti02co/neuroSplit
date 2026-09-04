@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>neuroSplit</title>
+  <link rel="stylesheet" href="panel.css" />
+</head>
+
+<!--
+  The whole UI has two "views":
+    - data-view="input"  to paste text + choose chunk size
+    - data-view="run"   to step through chunks and copy them
+
+  panel.js flips the value of data-view on <body>, and the CSS shows/hides
+  each view based on it. Keeping both in the DOM means switching back and
+  forth is instant and never loses your place.
+-->
+<body data-view="input">
+
+  <!-- ===== Header: wordmark + a settings toggle ===== -->
+  <header class="topbar">
+    <div class="brand">
+      <span class="brand__mark" aria-hidden="true"></span>
+      <span class="brand__name">neuroSplit</span>
+    </div>
+    <button id="settingsToggle" class="icon-btn" type="button"
+            aria-label="Settings" aria-expanded="false">
+      <!-- simple sliders glyph drawn in CSS -->
+      <span class="icon-sliders" aria-hidden="true"></span>
+    </button>
+  </header>
+
+  <!-- ===== Collapsible settings drawer ===== -->
+  <section id="settings" class="settings" hidden>
+    <label class="switch">
+      <input id="labelToggle" type="checkbox" />
+      <span class="switch__track" aria-hidden="true"></span>
+      <span class="switch__text">Prefix each copy with <code>[Part 3/12]</code></span>
+    </label>
+    <p class="settings__hint">
+      Tells the model the pieces belong together and what order they're in. Ideal if sending a text through multiple messages.
+    </p>
+  </section>
+
+  <main class="stage">
+
+    <!-- ===================== VIEW A · INPUT ===================== -->
+    <section class="view view--input" aria-label="Paste and configure">
+      <label class="field-label" for="input">Your text</label>
+      <textarea id="input" class="input"
+                placeholder="Paste a paper, a PDF dump, or any long text here."
+                spellcheck="false"></textarea>
+
+      <!-- live measurement of what's pasted -->
+      <p class="meter">
+        <span id="wordCount" class="meter__num">0</span> words
+        <span id="charCount" class="meter__sub">0 characters</span>
+      </p>
+
+      <!-- chunk size: a number box and a slider, kept in sync -->
+      <div class="control">
+        <label class="field-label" for="sizeNumber">Words per chunk</label>
+        <input id="sizeNumber" class="size-number" type="number"
+               min="1" max="2000" step="25" value="250" />
+      </div>
+      <input id="sizeRange" class="size-range" type="range"
+             min="25" max="1000" step="25" value="250"
+             aria-label="Words per chunk" />
+
+      <!-- primary action; label updates to show how many chunks you'll get -->
+      <button id="splitBtn" class="btn btn--primary" type="button" disabled>
+        Paste text to split
+      </button>
+    </section>
+
+    <!-- ===================== VIEW B · RUN ====================== -->
+    <section class="view view--run" aria-label="Copy chunks one by one">
+
+      <!-- HERO: the round counter. Big, tabular, the focal point. -->
+      <div class="counter" aria-live="polite">
+        <span id="counterCurrent" class="counter__cur">01</span>
+        <span class="counter__slash">/</span>
+        <span id="counterTotal" class="counter__total">01</span>
+      </div>
+
+      <!-- progress bar fills as you move through the chunks -->
+      <div class="progress" role="progressbar" aria-valuemin="0" aria-valuemax="100">
+        <div id="progressFill" class="progress__fill"></div>
+      </div>
+
+      <!-- the current chunk, shown as readable text -->
+      <div class="chunk-card">
+        <pre id="chunkText" class="chunk-card__text"></pre>
+      </div>
+
+      <!-- primary action: copy this chunk and move to the next -->
+      <button id="copyBtn" class="btn btn--primary" type="button">
+        Copy &amp; next
+      </button>
+
+      <!-- step backward / forward without copying -->
+      <div class="nav">
+        <button id="prevBtn" class="btn btn--ghost" type="button">Previous</button>
+        <button id="nextBtn" class="btn btn--ghost" type="button">Next</button>
+      </div>
+
+      <!-- jump straight to any chunk; the active one is highlighted -->
+      <nav id="jumpStrip" class="jump" aria-label="Jump to a chunk"></nav>
+
+      <button id="resetBtn" class="btn btn--text" type="button">New text</button>
+    </section>
+
+  </main>
+
+  <!-- tiny confirmation that pops when you copy -->
+  <div id="toast" class="toast" role="status" aria-live="polite" hidden></div>
+
+  <script src="panel.js"></script>
+</body>
+</html>
