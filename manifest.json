@@ -1,0 +1,21 @@
+{
+  "manifest_version": 3,
+  "name": "neuroSplit — feed text to LLMs in pieces",
+  "version": "1.0.0",
+  "description": "Paste a long text, split it into word-sized chunks, and copy them one after another. Handy when a chat turns big pastes into a file or drag and drop does not work.",
+  "permissions": ["sidePanel", "storage"],
+  "background": {
+    "service_worker": "background.js"
+  },
+  "action": {
+    "default_title": "Open neuroSplit"
+  },
+  "side_panel": {
+    "default_path": "src/panel.html"
+  },
+  "icons": {
+    "16": "icons/icon16.png",
+    "48": "icons/icon48.png",
+    "128": "icons/icon128.png"
+  }
+}
