@@ -1,6 +1,6 @@
 <div align="center">
 
-<img src="assets/screen.jpg" alt="neuroSplit" width="760">
+<img src="assets/screen.jpeg" alt="neuroSplit" width="760">
 
 <p>
   <img src="https://img.shields.io/badge/JavaScript-F7DF1E?style=for-the-badge&logo=javascript&logoColor=black" alt="JavaScript">
