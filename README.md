@@ -1,3 +1,20 @@
+<div align="center">
+
+<img src="assets/hero.png" alt="neuroSplit" width="760">
+
+<p>
+  <img src="https://img.shields.io/badge/JavaScript-F7DF1E?style=for-the-badge&logo=javascript&logoColor=black" alt="JavaScript">
+  <img src="https://img.shields.io/badge/HTML5-E34F26?style=for-the-badge&logo=html5&logoColor=white" alt="HTML5">
+  <img src="https://img.shields.io/badge/CSS3-1572B6?style=for-the-badge&logo=css3&logoColor=white" alt="CSS3">
+</p>
+<p>
+  <img src="https://img.shields.io/badge/Chrome_Extension-2EC866?style=for-the-badge&logo=googlechrome&logoColor=white" alt="Chrome Extension">
+  <img src="https://img.shields.io/badge/Manifest_V3-2EC866?style=for-the-badge&logo=googlechrome&logoColor=white" alt="Manifest V3">
+  <img src="https://img.shields.io/badge/License-MIT-2EC866?style=for-the-badge" alt="License: MIT">
+</p>
+
+</div>
+
 # neuroSplit
 
 **Feed long text to an LLM in pieces.** Paste a paper or a PDF dump into the
@@ -42,7 +59,7 @@ To pin it: click the puzzle-piece icon in the toolbar and pin neuroSplit.
 ## Project structure
 
 ```
-chunkr/
+neuroSplit/
 ├── manifest.json      Extension config (see fields below)
 ├── background.js      Service worker: opens the side panel on icon click
 ├── icons/             Toolbar/store icons (16, 48, 128 px)
